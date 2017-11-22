@@ -42,7 +42,8 @@
     <div class="form-group">
         {!! Form::label('seats', 'Кількість місць:',['class'=>'col-xs-2 control-label']) !!}
         <div class="col-xs-8">
-            {!! Form::number('seats', isset($flat->seats) ? $flat->seats : old('seats'), ['min'=>1,'class' => 'form-control']) !!}
+            {!! Form::number('seats', isset($flat->seats) ? $flat->seats : old('seats'), ['min'=>1,'max'=>1000,'class' =>
+            'form-control']) !!}
         </div>
     </div>
 
@@ -58,7 +59,7 @@
         {!! Form::label('map', 'Карта:',['class'=>'col-xs-2 control-label']) !!}
         <div class="col-xs-8">
             {!! Form::text('map', isset($flat->map) ? $flat->map : old('map'),['id' => 'searchmap', 'class' => 'form-control',
-            'placeholder'=>'Введіть адресу'])!!}
+            'placeholder'=>'Введіть адресу та виберіть зі списку'])!!}
             <div id="map-canvas"></div>
             <input type="hidden" class="form-control input-sm" value="{{isset($flat->lat) ? $flat->lat : old('lat')}}"
                    name="lat" id="lat">

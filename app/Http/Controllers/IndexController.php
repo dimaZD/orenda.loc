@@ -49,27 +49,7 @@ class IndexController extends Controller
         $inputs = $request->except('_token');
         $inputs['seats'] = isset($inputs['seats']) ? $inputs['seats'] : 1;
         $flats = Flat::where('seats', '>=', $inputs['seats'])
-            ->whereNotIn(
-                'id',
-                Order::where(function ($query) use ($inputs) {
-                    $query->where(function ($query) use ($inputs) {
-                        $query->where('start_date', '<=', $inputs['start_date'])
-                            ->where('end_date', '>=', $inputs['start_date']);
-                    })->orWhere(function ($query) use ($inputs) {
-                        $query->where('start_date', '>=', $inputs['start_date'])
-                            ->where('end_date', '<=', $inputs['end_date']);
-                    })->orWhere(function ($query) use ($inputs) {
-                        $query->where('start_date', '<=', $inputs['end_date'])
-                            ->where('end_date', '>=', $inputs['end_date']);
-                    })->orWhere(function ($query) use ($inputs) {
-                        $query->where('start_date', '<=', $inputs['start_date'])
-                            ->where('end_date', '>=', $inputs['end_date']);
-                    });
-                })
-                    ->where('status', '1')
-                    ->groupBy('flat_id')
-                    ->get(['flat_id'])
-            )
+            ->whereNotIn('id', Order::booked($inputs)->groupBy('flat_id')->get(['flat_id']))
             ->get(['id', 'name', 'image']);
 
         return view('welcome')->with(['flats' => $flats, 'title' => $this->title]);

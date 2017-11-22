@@ -27,9 +27,10 @@ class FlatCreateUpdateRequest extends FormRequest
             'name' => 'required',
             'image' => 'image',
             'advantages' => 'required',
-            'seats' => 'required|integer|min:1',
+            'seats' => 'required|integer|min:1|max:1000',
             'description' => 'required',
             'map' => 'required',
+            'lat' => 'required',
         ];
     }
 }
