@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, maximum-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{$title}}</title>
     <link rel="icon" href="favicon.png" type="image/png">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -11,9 +12,9 @@
 </head>
 <body>
 
+
 <header id="header_wrapper">
     @yield('header')
-
 
     @if (count($errors) > 0)
         <div class="alert alert-danger">
@@ -31,14 +32,15 @@
         </div>
     @endif
 </header>
-
-<div class="container-fluid">
-    <div class="row pad_top">
-        <div class="col-md-2">
-            @yield('sidebar')
-        </div>
-        <div class="col-md-10" role="main">
-            @yield('content')
+<div id="app">
+    <div class="container-fluid">
+        <div class="row pad_top">
+            <div class="col-md-2">
+                @yield('sidebar')
+            </div>
+            <div class="col-md-10" role="main">
+                @yield('content')
+            </div>
         </div>
     </div>
 </div>
@@ -52,6 +54,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
         integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
         crossorigin="anonymous"></script>
+<script src="js/app.js"></script>
 
 </body>
 </html>
